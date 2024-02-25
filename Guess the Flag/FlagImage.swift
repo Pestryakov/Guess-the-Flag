@@ -8,11 +8,21 @@
 import SwiftUI
 
 struct FlagImage: View {
+    let name: String
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        if let image = UIImage(named: name) {
+            Image(uiImage: image)
+                .clipShape(.capsule)
+                .shadow(radius: 10)
+        } else {
+            Text("Image not found")
+                .foregroundColor(.red)
+                .font(.title.bold())
+        }
     }
 }
 
 #Preview {
-    FlagImage()
+    FlagImage(name: "Fran")
 }

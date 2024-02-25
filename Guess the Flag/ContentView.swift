@@ -7,6 +7,20 @@
 
 import SwiftUI
 
+struct TitleModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.title.bold())
+            .foregroundStyle(.white)
+    }
+}
+
+extension View {
+    func title() -> some View {
+        modifier(TitleModifier())
+    }
+}
+
 struct ContentView: View {
     static let allCountries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Spain", "UK", "Ukraine", "US"]
     @State private var countries = allCountries.shuffled()
@@ -44,9 +58,7 @@ struct ContentView: View {
                         Button {
                             flagTapped(number)
                         } label: {
-                            Image(countries[number])
-                                .clipShape(.capsule)
-                                .shadow(radius: 10)
+                            FlagImage(name: countries[number])
                         }
                     }
                 }
@@ -58,8 +70,7 @@ struct ContentView: View {
                 Spacer()
                 
                 Text("Score: \(score)")
-                    .font(.title.bold())
-                    .foregroundStyle(.white)
+                    .title()
                 
                 Spacer()
             }
